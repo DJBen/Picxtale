@@ -1,5 +1,5 @@
 //
-//  PTViewController.h
+//  PTBrowserViewController.h
 //  PicxTale
 //
 //  Created by Sihao Lu on 1/25/14.
@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MWPhotoBrowser.h>
 
-@interface PTViewController : UIViewController
+@interface PTBrowserViewController : MWPhotoBrowser
+
+- (IBAction)refresh:(id)sender;
 
 @end
