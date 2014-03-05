@@ -15,4 +15,3 @@ photo which does not contain encrypted message. Tap the ``Gallery'' icon on the 
 
 ## Something glitchy
 The projects has 20 warnings. ``Wut?? Are you kidding me?'' No, I am talking about this seriously. **Most of them are
-generated
