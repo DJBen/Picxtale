@@ -45,7 +45,6 @@
         self.displayNavArrows = YES;
         self.zoomPhotosToFill = YES;
         self.enableGrid = YES;
-        self.startOnGrid = YES;
         self.alwaysShowControls = YES;
         self.delegate = self;
         
@@ -62,7 +61,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
 }
 
 - (void)didReceiveMemoryWarning
