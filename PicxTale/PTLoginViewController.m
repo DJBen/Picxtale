@@ -45,9 +45,6 @@
     return NO;
 }
 
-- (IBAction)loginTapped:(id)sender {
-}
-
 - (IBAction)unwindToLogin:(UIStoryboardSegue *)segue {
     
 }

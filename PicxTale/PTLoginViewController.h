@@ -12,8 +12,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 
-- (IBAction)loginTapped:(id)sender;
-
 - (IBAction)unwindToLogin:(UIStoryboardSegue *)segue;
 
 - (IBAction)loginWithFacebook:(id)sender;

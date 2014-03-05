@@ -24,8 +24,6 @@
     BOOL photoShouldContainTale;
 }
 
-//@property (nonatomic, strong) NSMutableDictionary *photoPaths;
-
 @end
 
 @implementation PTBrowserViewController
@@ -42,22 +40,21 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        // Init
         self.displayActionButton = YES;
         self.displayNavArrows = YES;
         self.zoomPhotosToFill = YES;
         self.enableGrid = YES;
+        self.startOnGrid = YES;
         self.alwaysShowControls = YES;
         self.delegate = self;
         
         _photos = [NSMutableArray array];
         _thumbs = [NSMutableArray array];
-//        _photoPaths =[NSMutableDictionary dictionary];
+        
         [self loadTestImages];
         [self loadRealImages];
         
-//        UILongPressGestureRecognizer *gr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(reveal)];
-//        gr.minimumPressDuration = 2.0;
-//        [self.view addGestureRecognizer:gr];
     }
     return self;
 }
@@ -65,10 +62,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(action)];
-    self.navigationItem.rightBarButtonItem = anotherButton;
-    }
+
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -349,12 +344,6 @@
     return nil;
 }
 
-//- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
-//    MWPhoto *photo = [self.photos objectAtIndex:index];
-//    MWCaptionView *captionView = [[MWCaptionView alloc] initWithPhoto:photo];
-//    return [captionView autorelease];
-//}
-
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
     NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
     // Change button to image-specific
@@ -364,16 +353,8 @@
     
 }
 
-//- (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index {
-//    return [[_selections objectAtIndex:index] boolValue];
-//}
-
-//- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected {
-//    [_selections replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:selected]];
-//    NSLog(@"Photo at index %lu selected %@", (unsigned long)index, selected ? @"YES" : @"NO");
-//}
-
 - (void)photoBrowserDidShowGrid:(MWPhotoBrowser *)photoBrowser {
+    NSLog(@"Changing button to add");
     UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(action)];
     self.navigationItem.rightBarButtonItem = anotherButton;
 }

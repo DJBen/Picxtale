@@ -4,6 +4,8 @@ PicxTale
 Steganography. Hide information inside a message. Supports hiding Venmo payment info inside image. 
 Made during Hack Rice 2013.
 
+http://hackrice.challengepost.com/submissions/20468-picxtale
+
 ## How to run
 Clone. `pod install`, open `PicxTale.xcworkspace` to install.
 

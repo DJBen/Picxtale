@@ -1,6 +1,6 @@
 PODS:
   - DACircularProgress (2.1.0)
-  - Facebook-iOS-SDK (3.11.1)
+  - Facebook-iOS-SDK (3.12.0)
   - FXBlurView (1.5.1)
   - M13ProgressSuite (1.0.0)
   - MBProgressHUD (0.8)
@@ -19,16 +19,20 @@ PODS:
 DEPENDENCIES:
   - FXBlurView (~> 1.5.1)
   - M13ProgressSuite (~> 1.0.0)
-  - MWPhotoBrowser (~> 1.2.1)
+  - MWPhotoBrowser (from `https://github.com/DJBen/MWPhotoBrowser.git`)
   - Parse-iOS-SDK (~> 1.2.18)
+
+EXTERNAL SOURCES:
+  MWPhotoBrowser:
+    :git: https://github.com/DJBen/MWPhotoBrowser.git
 
 SPEC CHECKSUMS:
   DACircularProgress: 8c8f20c8dffdd647fbf570ddecbc2b1b59da5888
-  Facebook-iOS-SDK: 42a1de39170b858d675c2453d8aace55c51be2bb
+  Facebook-iOS-SDK: c09f7d80db5c48170ff834bc03ebe774c49d1f5b
   FXBlurView: 073fdfdf3fa8d715130d2c1392ba1545551776f1
   M13ProgressSuite: 34c28a6eb72313660b4676ec2f05742a665700a7
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
-  MWPhotoBrowser: cd204e6b02686f6fae5034932ad8382f9963f2fc
+  MWPhotoBrowser: b12f43a9b65393b1a691d33f3424d0154a57f757
   Parse-iOS-SDK: 48bfd538a107b6e1f29eebe59fa80c0f0b844dd1
   PSTCollectionView: fb2ad2790c6efa306b2caf10315b2c1464d1f5c6
   SDWebImage: fe7ce01ae4e0a884d168f59c9dd82d35baf8429e
