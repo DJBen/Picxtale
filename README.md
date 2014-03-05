@@ -7,7 +7,7 @@ Made during Hack Rice 2013.
 http://hackrice.challengepost.com/submissions/20468-picxtale
 
 ## How to run
-Clone. `pod install`, open `PicxTale.xcworkspace` to install.
+Clone. `pod install`, open `PicxTale.xcworkspace`. RUN!
 
 ## Awesomeness
 ![Hidden info](https://raw.github.com/DJBen/Picxtale/master/Picxtale_demo_1.png)
