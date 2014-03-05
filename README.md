@@ -6,6 +6,10 @@ Made during Hack Rice 2013.
 
 http://hackrice.challengepost.com/submissions/20468-picxtale
 
+## Requirements
+1. Xcode 5 and iOS 7.
+2. [CocoaPods](http://cocoapods.org/)
+
 ## How to run
 Clone. `pod install`, open `PicxTale.xcworkspace`. RUN!
 
