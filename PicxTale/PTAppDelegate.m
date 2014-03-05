@@ -10,10 +10,15 @@
 #import "PTMainViewController.h"
 #import <Parse/Parse.h>
 
+static NSString *const kVenmoAppId      = @"1564";
+static NSString *const kVenmoAppSecret  = @"eg8bFxbAFg7R7H7Mhn3UNcmAYCrHVwfY";
+
 @implementation PTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    _venmoClient = [VenmoClient clientWithAppId:kVenmoAppId secret:kVenmoAppSecret];
+
     [Parse setApplicationId:@"9osGpkWKYYtZxgN7z7lVa2846JglPgyjMXRfBqan"
                   clientKey:@"5WzxuJTc9tgTT6VPP1RGcHPqSaovsY8RjPNUYZtx"];
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -26,6 +31,29 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
+    
+    NSLog(@"openURL: %@", url);
+    BOOL success = [_venmoClient openURL:url completionHandler:^(VenmoTransaction *transaction, NSError *error) {
+        if (transaction) {
+            NSString *success = (transaction.success ? @"Success" : @"Failure");
+            NSString *title = [@"Transaction " stringByAppendingString:success];
+            NSString *message = [@"payment_id: " stringByAppendingFormat:@"%@. %@ %@ %@ (%@) $%@ %@",
+                                 transaction.transactionID,
+                                 transaction.fromUserID,
+                                 transaction.typeStringPast,
+                                 transaction.toUserHandle,
+                                 transaction.toUserID,
+                                 transaction.amountString,
+                                 transaction.note];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message
+                                                               delegate:nil cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+        } else { // error
+            NSLog(@"transaction error code: %i", error.code);
+        }
+    }];
+    if (success) return success;
     return [FBAppCall handleOpenURL:url
                   sourceApplication:sourceApplication
                         withSession:[PFFacebookUtils session]];

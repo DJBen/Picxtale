@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <VenmoAppSwitch/Venmo.h>
 
 @interface PTAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-//@property (strong, nonatomic) UIViewController *viewController;
+@property (strong, nonatomic) VenmoClient *venmoClient;
 
 @end

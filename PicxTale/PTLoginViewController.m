@@ -8,7 +8,6 @@
 
 #import "PTLoginViewController.h"
 #import <Parse/Parse.h>
-#import "PTPhotoManager.h"
 #import "PTBrowserViewController.h"
 
 @interface PTLoginViewController ()
@@ -60,13 +59,21 @@
             NSLog(@"Uh oh. The user cancelled the Facebook login.");
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:@"Please check your connection and login again" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
-        } else if (user.isNew) {
-            NSLog(@"User signed up and logged in through Facebook!");
-            self.user = user;
-            [self proceed];
         } else {
-            NSLog(@"User logged in through Facebook!");
+            if (user.isNew) {
+                NSLog(@"User signed up and logged in through Facebook!");
+            } else {
+                NSLog(@"User logged in through Facebook!");
+            }
             self.user = user;
+            [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                if (!error) {
+                    // Store the current user's Facebook ID on the user
+                    [[PFUser currentUser] setObject:[result objectForKey:@"id"]
+                                             forKey:@"fbId"];
+                    [[PFUser currentUser] saveInBackground];
+                }
+            }];
             [self proceed];
         }
         NSLog(@"%@", [PFUser currentUser]);

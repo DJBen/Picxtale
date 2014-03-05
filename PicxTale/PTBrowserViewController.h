@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <MWPhotoBrowser.h>
 
-@interface PTBrowserViewController : MWPhotoBrowser
+@interface PTBrowserViewController : MWPhotoBrowser <MWPhotoBrowserDelegate>
 
-- (IBAction)refresh:(id)sender;
+@property (nonatomic, strong) NSMutableArray *photos;
+@property (nonatomic, strong) NSMutableArray *thumbs;
+
+- (IBAction)unwindToBrowser:(UIStoryboardSegue *)segue;
 
 @end

@@ -35,8 +35,6 @@
     // Pass in a reference of the viewController.
     owner.view.delegateViewController = viewController;
     
-    [owner.view setDynamic:NO];
-    
     // Add (thus retain).
     [viewController.view addSubview:owner.view];
     
@@ -44,7 +42,7 @@
     [UIView animateWithDuration:1.0 delay:1.0 options:0 animations:^{
         owner.view.alpha = 1.0f;
     } completion:^(BOOL finished) {
-        
+        [owner.view setDynamic:NO];
     }];
 
 }

@@ -162,6 +162,7 @@ unsigned char roundToFit(unsigned char value, int mod, int base) {
             [message appendString:currentBrainfuckCodeBit];
         }
     }
+    free(bitmap);
     return [[message copy] parseBrainfuckCode];
 }
 

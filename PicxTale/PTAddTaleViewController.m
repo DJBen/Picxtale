@@ -12,8 +12,9 @@
 #import "PTImageEncrypter.h"
 #import "UIImage+Resize.h"
 #import "NSString+Random.h"
+#import "PTChooseFriendsViewController.h"
 
-@interface PTAddTaleViewController () <MWPhotoBrowserDelegate, PTTaleViewDelegate>
+@interface PTAddTaleViewController () <MWPhotoBrowserDelegate, PTTaleViewDelegate, UIAlertViewDelegate>
 
 @end
 
@@ -31,7 +32,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.displayActionButton = NO;
+        self.displayActionButton = YES;
         self.displayNavArrows = YES;
         //        self.displaySelectionButtons = displaySelectionButtons;
         //        self.alwaysShowControls = displaySelectionButtons;
@@ -52,6 +53,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"friendListSegue"]) {
+        PTChooseFriendsViewController *vc = [segue destinationViewController];
+        vc.photo = self.photo;
+    }
 }
 
 #pragma mark - PTTaleView Delegate
@@ -80,7 +88,7 @@
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_queue_t main_queue = dispatch_get_main_queue();
     dispatch_async(queue, ^{
-        UIImage *newImage = [PTImageEncrypter encodedImage:self.photo.image message:jsonString];
+        UIImage *newImage = [PTImageEncrypter encodedImage:[self.photo.image resizedImageWithQuality:PTImageHighQuality] message:jsonString];
         NSData *encodedImageData = UIImagePNGRepresentation(newImage);
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -91,6 +99,12 @@
         dispatch_async(main_queue, ^{
             [self.navigationController finishProgress];
             [self.view setUserInteractionEnabled:YES];
+            if (venmoAccount && venmoAccount.length > 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ask for Payment" message:@"Do you wish to push this photo immediately to your friend to let him pay you?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes!", nil];
+                alert.delegate = self;
+                alert.tag = 1023;
+                [alert show];
+            }
         });
     });
 }
@@ -116,10 +130,6 @@
 //    return [captionView autorelease];
 //}
 
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index {
-    NSLog(@"ACTION!");
-}
-
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index {
     NSLog(@"Did start viewing photo at index %lu", (unsigned long)index);
 }
@@ -132,5 +142,21 @@
 //    [_selections replaceObjectAtIndex:index withObject:[NSNumber numberWithBool:selected]];
 //    NSLog(@"Photo at index %lu selected %@", (unsigned long)index, selected ? @"YES" : @"NO");
 //}
+
+#pragma mark - Alert View Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            // NO
+            [self performSegueWithIdentifier:@"unwindAddTaleSegue" sender:self];
+            break;
+        case 1:
+            [self performSegueWithIdentifier:@"friendListSegue" sender:self];
+            // YES
+            break;
+        default:
+            break;
+    }
+}
 
 @end
