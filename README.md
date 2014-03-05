@@ -34,4 +34,4 @@ Also here's a list of existing issues:
 
 1. The delete photo function does **not** work. 
 2. Your newly added photo may not appear immediately. Please choose an arbitrary photo and tap `photo` -> `refresh` and switch back to grid view, waiting for a few seconds.
-3. Sometimes, when you try to `reveal` secret of the same photo more than once, the secret appears to be garbage. *I will be very appreciated if someone solved this problem!*
+3. Sometimes, when you try to `reveal` secret of the same photo more than once, the secret appears to be garbage. *I will be very appreciated if someone has any idea about this problem!*
